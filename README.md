@@ -14,7 +14,7 @@ Tu tarea es construir un dashboard en React + TypeScript que consuma un único e
 GET /freight
 
 
-1. Tabla Principal de Envíos
+## 1. Tabla Principal de Envíos
 
 Construir una tabla interactiva que muestre la lista de registros con las siguientes columnas:
 
@@ -25,9 +25,21 @@ Construir una tabla interactiva que muestre la lista de registros con las siguie
 * Estado
 * Costo
 
-La tabla debe permitir:
+### La tabla debe permitir:
 
 * Buscar por nombre de cliente
 * Filtrar por tipo de transporte
 * Filtrar por estado
 * Ordenar por peso, costo y fecha
+
+
+## 2. Panel de Estadísticas
+
+Crear una sección donde se muestren métricas relevantes basadas en los datos recibidos.
+Las estadísticas mínimas solicitadas son:
+
+* Total de envíos
+* Peso total y volumen total
+* Costo promedio por tipo de transporte
+* Top 5 clientes con mayor volumen total transportado
+* Cantidad de envíos por estado
