@@ -1,41 +1,45 @@
-# Shipment Tracker Backend Walkthrough
+# Freight Endpoint Walkthrough
 
-I have successfully implemented the backend for the Shipment Tracker Dashboard using Node.js, Express, and TypeScript, following a Hexagonal Architecture.
+I have successfully implemented the `/freight` endpoint for the Shipment Tracker Dashboard.
 
 ## Changes Made
 
-### 1. Dependencies
-Installed `express`, `cors`, and `ts-node-dev` along with their type definitions.
+### 1. Domain Layer
+- Created `src/domain/freight.ts` defining `FreightItem` and `FreightRepository`.
 
-### 2. Architecture
-Implemented a Hexagonal Architecture with the following structure:
-- **Domain**: `src/domain/shipment.ts` (Interfaces)
-- **Application**: `src/application/shipmentService.ts` (Business Logic)
-- **Infrastructure**:
-    - **Persistence**: `src/infrastructure/persistence/inMemoryShipmentRepository.ts` (Mock Data)
-    - **HTTP**:
-        - **Controllers**: `src/infrastructure/http/controllers/shipmentController.ts`
-        - **Routes**: `src/infrastructure/http/routes/shipmentRoutes.ts`
-        - **Middlewares**: `src/infrastructure/http/middlewares/errorHandler.ts`
+### 2. Infrastructure Layer
+- Created `src/infrastructure/persistence/inMemoryFreightRepository.ts` which generates 150 mock freight items.
+- Created `src/infrastructure/http/controllers/freightController.ts` to handle requests.
+- Created `src/infrastructure/http/routes/freightRoutes.ts` to define the route.
 
-### 3. Endpoints
-Implemented the following endpoints:
-- `GET /shipments`: Returns a list of 15 mock shipments.
-- `GET /shipments/:id`: Returns a specific shipment by ID.
-- `PUT /shipments/:id/status`: Updates the status of a shipment.
-- `POST /shipments`: Creates a new shipment.
+### 3. Application Layer
+- Created `src/application/freightService.ts` to bridge the controller and repository.
+
+### 4. Configuration
+- Updated `src/index.ts` to register the `/freight` route.
+- Configured CORS to explicitly allow `http://localhost:3000`.
 
 ## Verification Results
 
-### Automated Tests
-Ran `curl` commands to verify the endpoints:
+### Endpoint Test
+Ran `curl http://localhost:3001/freight` and received a JSON array of freight items.
 
-1. **GET /shipments**
-   - Returns a JSON array of shipments.
-2. **GET /shipments/1**
-   - Returns the shipment with ID "1".
-3. **PUT /shipments/1/status**
-   - Updates status to "arrived" and returns success message.
+Example item:
+```json
+{
+  "id": "1",
+  "customer": "FedEx",
+  "origin": "Mumbai",
+  "destination": "Berlin",
+  "weight": 843,
+  "volume": 4.68,
+  "transport": "sea",
+  "status": "in_transit",
+  "cost": 4113,
+  "departureDate": "2025-11-20T10:14:37.900Z",
+  "arrivalDate": "2026-01-02T10:14:37.900Z"
+}
+```
 
 ### Server Status
-The server is running on `http://localhost:3000` and is ready for the frontend to connect.
+The server is running on `http://localhost:3001` and is ready for the frontend.
